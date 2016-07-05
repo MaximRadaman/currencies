@@ -6,13 +6,6 @@
 
 namespace Drupal\currencies;
 
-use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Render\Element\Date;
-use Drupal\Core\Url;
-use Drupal\currencies\CurrenciesServiceInterface;
-use Symfony\Component\Routing\Generator\UrlGenerator;
-use Symfony\Component\Validator\Constraints\DateTime;
-
 /**
  * Class CurrenciesService.
  *
