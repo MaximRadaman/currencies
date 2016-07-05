@@ -26,18 +26,18 @@ class CurrenciesRatesBlock extends BlockBase {
   public function build() {
 
     $config = $this->getConfiguration();
-    $curriencies = \Drupal::service('currencies.nbrb')->getAllCurrencies();
+    $currencies = \Drupal::service('currencies.nbrb')->getAllCurrencies();
 
     if (isset($config['currencies_list'])) {
-      foreach ($curriencies as $key => $curriency) {
+      foreach ($currencies as $key => $curriency) {
         if (!in_array($key, $config['currencies_list'])) {
-          unset($curriencies[$key]);
+          unset($currencies[$key]);
         }
       }
     }
 
     $output = "<table width='100%'>";
-    foreach ($curriencies as $curriency) {
+    foreach ($currencies as $curriency) {
       $output .= "<tr>";
       $output .= "<td>{$curriency->CharCode}/BYN </td>";
       $output .= "<td>{$curriency->Rate}</td>";

@@ -7,7 +7,6 @@
 namespace Drupal\currencies\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\currencies\BnrbCurrenciesService;
 use Drupal\currencies\CurrenciesServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -26,7 +25,7 @@ class CurrenciesController extends ControllerBase {
   /**
    * CurrenciesController constructor.
    */
-  public function __construct(BnrbCurrenciesService $currenciesService) {
+  public function __construct(CurrenciesServiceInterface $currenciesService) {
     $this->currenciesService = $currenciesService;
   }
 
@@ -43,10 +42,28 @@ class CurrenciesController extends ControllerBase {
    * Get all currencies.
    */
   public function getAllCurrencies() {
-    $currencies_block = \Drupal::service('plugin.manager.block')->createInstance('currencies_block', []);
-    $currencies_block = $currencies_block->build();
+
+    /**
+     * Render All currencies page using block.
+     *
+     * $currencies_block = \Drupal::service('plugin.manager.block')->createInstance('currencies_block', []);
+     * $currencies_block = $currencies_block->build();
+     * $output = isset($currencies_block['#markup']) ? $currencies_block['#markup'] : '';
+     */
+
+    // Render All currencies page using service.
+    $currencies = $this->currenciesService->getAllCurrencies();
+    $output = "<table width='100%'>";
+    foreach ($currencies as $curriency) {
+      $output .= "<tr>";
+      $output .= "<td>{$curriency->CharCode}/BYN </td>";
+      $output .= "<td>{$curriency->Rate}</td>";
+      $output .= "</tr>";
+    }
+    $output .= "</table>";
+
     return [
-      '#markup' => isset($currencies_block['#markup']) ? $currencies_block['#markup'] : '',
+      '#markup' => $output,
     ];
   }
 
