@@ -1,0 +1,7 @@
+currencies.currencies_page:
+  path: 'currencies'
+  defaults:
+    _controller: '\Drupal\currencies\Controller\CurrenciesController::getAllCurrencies'
+    _title: 'All currencies'
+  requirements:
+    _permission: 'access content'
